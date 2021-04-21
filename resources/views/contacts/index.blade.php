@@ -1,46 +1,46 @@
-
-<!DOCTYPE html>
-  <html lang="en">
-     <head>
-     <title>View Recods</title>
-     <meta charset="utf-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <meta name="description" content="Simple CMS" />
-     <meta name="author" content="Sheikh Heera" />
-     <link href = {{ asset("bootstrap/css/bootstrap.css") }} rel="stylesheet" />
-   
-       </head>
-          <body>
-            @include('contacts.header')
-
-             <div class= "row">
-             <div class ="col-md-12">
-             <table class="table table-bordered">
-           
-         <thead>
-         <tr>
-          <th>Id</th>
-          <th>Full Name</th>
-          <th>Contact Number</th>
-          
-
-         </tr>
-
-@foreach ($contacts  as $row)
-   <tr>
-        <td>{{ $row->id }}</td>
-        <td>{{ $row->name }}</td>
-        <td>{{ $row->contact_number }}</td>
-
-    </tr>
-@endforeach
-              
-              
-            </thead>
-        </table>
-      </div>
+@extends('contacts.layout')
+ @include('contacts.header')
+@section('content')
+    <div class="row" style="margin-top: 5rem;">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2>CONTACTS</h2>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-success" href="{{ route('contacts.create') }}"> Create New contact</a>
+            </div>
+        </div>
     </div>
-  </body>
-</html
-          @include('contacts.footer') 
+   
+   
+   
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Contact Number</th>
+            <th width="160px">Action</th>
+        </tr>
+        @foreach ($contacts as $row)
+        <tr>
+            <td>{{ $row->id }}</td>
+            <td>{{ $row->name }}</td>
+            <td>{{ $row->contact_number }}</td>
+            <td>
+                <form action="{{ route('contacts.destroy',$row->id) }}" method="POST">       
+                    <a class="btn btn-primary" href="{{ route('contacts.edit',$row->id) }}">Edit</a>   
+                    @csrf
+                    @method('DELETE')      
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+     
+        @endforeach
+       
+    </table>  
+    
+@include('contacts.footer')
+    
+ 
+@endsection
