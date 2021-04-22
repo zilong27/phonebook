@@ -11,7 +11,12 @@
             </div>
         </div>
     </div>
-   
+
+    @if ($message = Session::get('success'))
+       <div class="alert alert-success">
+          <p>{{ $message }}</p>
+       </div>
+    @endif
    
    
     <table class="table table-bordered">
@@ -27,7 +32,7 @@
             <td>{{ $row->name }}</td>
             <td>{{ $row->contact_number }}</td>
             <td>
-                <form action="{{ route('contacts.destroy',$row->id) }}" method="POST">       
+                <form action="{{ route('contacts.destroy',$row->id) }}" method="POST">     
                     <a class="btn btn-primary" href="{{ route('contacts.edit',$row->id) }}">Edit</a>   
                     @csrf
                     @method('DELETE')      

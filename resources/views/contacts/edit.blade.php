@@ -1,5 +1,5 @@
 @extends('contacts.layout')
-   
+@include('contacts.header')
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -13,7 +13,7 @@
     </div>
    
   
-    <form action="{{ route('contacts.update',$contacts->id) }}" method="POST">
+    <form action="{{ route('contacts.update',$row->id) }}" method="POST">
         @csrf
         @method('PUT')
    
@@ -21,13 +21,13 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Full Name:</strong>
-                    <input type="text" name="name" value="{{ $contacts->name }}" class="form-control" placeholder="Full name">
+                    <input type="text" name="name" value="{{ $row->name }}" class="form-control" placeholder="Full Name">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Contact:</strong>
-                    <input type-="number"  name="contact_number" placeholder="Contact Number">{{ $contacts->contact_number }}</textarea>
+                    <strong>Contact Number:</strong>
+                    <input type="number" name="contact_number" value="{{ $row->contact_number }}" class="form-control" placeholder="Contact Number">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -36,4 +36,5 @@
         </div>
    
     </form>
+    @include('contacts.footer')
 @endsection

@@ -9,69 +9,70 @@ use Response;
 
 class ContactsController extends Controller
 {
-    public function index() { 
+    public function index() 
+    { 
         
         $phonebook = Contact::all();
 
-            return view('contacts.index',[
-
-                         'contacts' => $phonebook
-                   
-                  
-
+        return view('contacts.index',[
+                    'contacts' => $phonebook
         ]);
     } 
-    public function create() { 
+
+    public function create() 
+    { 
         
         return view('contacts.create');
 
     }
+
     public function store(Request $request) {
         $request->validate([
             'name' => 'required',
-            'contact_number' => 'required',
+            'contact_number' => 'required|unique:contacts'
         ]);
     
-        phonebook::create($request->all());
+        Contact::create($request->all());
      
         return redirect()->route('contacts.index')
-                         ->with('success','successfully created .');
+                         ->with('success','successfully created.');
     }
   
     public function show() {
+
+        return view('contacts.show');
         
        
-
-
     }
-    public function edit(Contact $contacts){
+    public function edit($id){
 
-        return view('contacts.edit',[
-
-            'contacts' => $contacts
-            
-            ]);
+        $row = Contact::find($id);
+        return view('contacts.edit', compact('row'));  
  
     }
-    public function update(Request $request, contact $contact){
+    public function update(Request $request ,$id){
         $request->validate([
-            'name' => 'required',
-            'contact_number' => 'required',
+            'name'=>'required',
+            'contact_number'=>'required|unique:contacts',
+        
         ]);
-    
-        $contacts>update($request->all());
-    
+
+        $row = Contact::find($id);
+        $row->name =  $request->get('name');
+        $row->contact_number = $request->get('contact_number');
+        $row->save();
+       
         return redirect()->route('contacts.index')
-                        ->with('success','successfully updated');
-    
+                         ->with('success','successfully Updated!.');
 
     }
     public function destroy($id){
         
+        $contacts = Contact::find($id);
         $contacts->delete();
-    
+
         return redirect()->route('contacts.index')
-                        ->with('success','successfully deleted ');
+                         ->with('success','successfully deleted ');
 
 
     }

@@ -10,12 +10,18 @@
             <a class="btn btn-primary" href="{{ route('contacts.index') }}"> Back</a>
         </div>
     </div>
-</div>
-   
 
-       
+    @if ($errors->any())
+    <div class="alert alert-danger">
+  
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-   
 <form action="{{ route('contacts.store') }}" method="POST">
     @csrf
   
@@ -23,13 +29,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
-                <input type="text" name="Name" class="form-control" placeholder="Enter name">
+                <input type="text" name="name" class="form-control" placeholder="Enter name">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Contact Number:</strong>
-                <input type="number" name="number" class="form-control" placeholder="Enter Contact Number">
+                <input type="number" name="contact_number" class="form-control" placeholder="Enter Contact Number">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
