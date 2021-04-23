@@ -1,30 +1,32 @@
 @extends('contacts.layout')
-  
+@include('contacts.header')  
 @section('content')
-<div class="row">
+<div class="row" style="margin-top: 5rem;">
     <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
+        <div class="pull-center">
             <h2>Add New contacts</h2>
-        </div>
-        
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('contacts.index') }}"> Back</a>
+            <style>
+                h2 {
+                  text-align: center;
+                }
+                </style>
         </div>
     </div>
+</div>
+
 
    
   
 
 <form action="{{ route('contacts.store') }}" method="POST">
-    @csrf 
-  
+@csrf 
+   
     
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group"> 
                 <strong>Full Name:</strong>
                 <input type="text" name="name" class="form-control" id="name" required aria-required="true" placeholder="Enter name" >
-                
             </div>
         </div>
        
@@ -37,12 +39,12 @@
           </div>
         </div>
      </div>
-            
-        
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="col-xs-13 col-sm-13 col-md-12 text-right">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a class="btn btn-primary" href="{{ route('contacts.index') }}"> Back</a>
         </div>
     </div>
    
 </form>
+@include('contacts.footer')
 @endsection

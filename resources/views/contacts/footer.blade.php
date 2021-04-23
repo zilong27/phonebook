@@ -4,7 +4,19 @@
        
      
      
-      <div id="copyright text-right">© Copyright 2021 Contacts test</div>
-      
+      <div id="copyright text-align">© Copyright 2021 Contacts test</div>
+
+      <style> 
+
+      footer{ 
+
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+      } 
+
+      </style>
     </div>
   </footer>
+
+ 

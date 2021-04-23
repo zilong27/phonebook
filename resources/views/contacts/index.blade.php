@@ -3,11 +3,8 @@
 @section('content')
     <div class="row" style="margin-top: 5rem;">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+            <div class="push-center">
                 <h2>CONTACTS</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('contacts.create') }}"> Create New contact</a>
             </div>
         </div>
     </div>
@@ -21,10 +18,10 @@
    
     <table class="table table-bordered">
         <tr>
-            <th>ID</th>
-            <th>Full Name</th>
-            <th>Contact Number</th>
-            <th width="160px">Action</th>
+            <th width="5%">ID</th>
+            <th style="text-align:center">Full Name</th>
+            <th style="text-align:center">Contact Number</th>
+            <th width="250px"style="text-align:center">Action</th>
         </tr>
         @foreach ($contacts as $row)
         <tr>
@@ -32,7 +29,8 @@
             <td>{{ $row->name }}</td>
             <td>{{ $row->contact_number }}</td>
             <td>
-                <form action="{{ route('contacts.destroy',$row->id) }}" method="POST">     
+                <form action="{{ route('contacts.destroy',$row->id) }}" method="POST">
+                    <a class="btn btn-success" href="{{ route('contacts.create') }}">Add New</a>     
                     <a class="btn btn-primary" href="{{ route('contacts.edit',$row->id) }}">Edit</a>   
                     @csrf
                     @method('DELETE')      
