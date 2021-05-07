@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('contacts.layout')
+
 
 @section('content')
 <div class="container">

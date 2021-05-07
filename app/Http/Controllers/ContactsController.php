@@ -9,14 +9,17 @@ use Response;
 
 class ContactsController extends Controller
 {
-    public function index() 
+
+    public function index(Request $request)
+     
     { 
-        
+       // $this->middleware('auth',['except'=>['index','show']]);
         $phonebook = Contact::all();
 
         return view('contacts.index',[
                     'contacts' => $phonebook
         ]);
+        
     } 
 
     public function create() 
@@ -31,8 +34,16 @@ class ContactsController extends Controller
             'name' => 'required',
             'contact_number' => 'required|unique:contacts'
         ]);
+     
+
+       
     
-        Contact::create($request->all());
+        Contact::create([
+           'name' => $request->input('name'),
+           'contact_number' => $request->input('contact_number'),
+           'user_id' => auth()->user()->id 
+           ]);
+
      
         return redirect()->route('contacts.index')
                          ->with('success','successfully created.');
@@ -54,12 +65,14 @@ class ContactsController extends Controller
         $request->validate([
             'name'=>'required',
             'contact_number'=>'required|unique:contacts',
+           
         
         ]);
 
         $row = Contact::find($id);
         $row->name =  $request->get('name');
         $row->contact_number = $request->get('contact_number');
+        
         $row->save();
        
         return redirect()->route('contacts.index')
