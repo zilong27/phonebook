@@ -56,8 +56,10 @@
                                 </li>
                             @endif
                         @else
+                        
                         <li class="nav-item">
-                         {{ Auth::user()->name }}  
+                         {{ Auth::user()->name }}
+                         <img class="img-thumbnail " src="{{asset(Auth::user()->avatar)}}" alt="" style="width: 80px;height: 65px; padding: 8px; margin: 0px; ">
                             
                                <a href="{{ route('logout') }}"
                                   class="no-underline hover:no-underline" 

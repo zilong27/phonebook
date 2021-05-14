@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactsController;
+use Illuminate\Support\Facades\Input;
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,10 +23,10 @@ use App\Http\Controllers\ContactsController;
     //  return view('dashboard');
 //})->name('dashboard');
 Route::resource('/contacts','App\Http\Controllers\ContactsController');
-Auth::routes();
+Auth::routes(); 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

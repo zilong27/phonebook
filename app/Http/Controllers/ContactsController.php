@@ -30,24 +30,36 @@ class ContactsController extends Controller
     }
 
     public function store(Request $request) {
+
+
         $request->validate([
             'name' => 'required',
-            'contact_number' => 'required|unique:contacts'
+            'contact_number' => 'required|unique:contacts',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+           
         ]);
-     
 
-       
+             $newImageName = time() .'-' . $request->name .'.' . $request->image->extension();  
+
+     
+             $request->image->move(public_path('images'), $newImageName);
+
+           
     
         Contact::create([
            'name' => $request->input('name'),
            'contact_number' => $request->input('contact_number'),
+           'image_path' => $newImageName,
            'user_id' => auth()->user()->id 
-           ]);
+          
+        ]);
 
      
         return redirect()->route('contacts.index')
                          ->with('success','successfully created.');
+                        
     }
+    
   
     public function show() {
 
